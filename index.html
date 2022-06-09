@@ -52,6 +52,7 @@
         const code = state.getAttribute('code');
         const uf = estados.find(estado => estado.code === code)
         writeInfo(uf);
+        scrollWindow();
         /* console.log(uf) */
     }
 
@@ -63,6 +64,12 @@
         $name.innerHTML = `${uf.nome} (${uf.sigla})`;
         $pop.innerHTML = `População: ${uf.populacao}`;
         $desc.innerHTML = uf.descricao;
+    }
+
+    const scrollWindow = () => {
+        const $text = document.getElementById('text');
+        const position = $text.getBoundingClientRect();
+        window.scrollTo(position);
     }
 
 </script>
