@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG Brasil</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="container">
+        <div id="map">
+            <img src="brasil.svg" onload="fetchSvg(this)" />
+        </div>
+        <div id="text">
+            <h1 id="stateName">Estado</h1>
+            <h3 id="statePop">População: </h3>
+            <p id="stateDesc"></p>
+        </div>
+    </div>
+<script>
+    const estados = [];
+
+    const fetchSvg = (img) => {
+        fetch(img.src)
+            .then((response) => response.text())
+            .then((data) => {
+                const span = document.createElement('span');
+                span.innerHTML = data;
+                const $inlineSvg = span.getElementsByTagName('svg')[0];
+                img.parentNode.replaceChild($inlineSvg, img)
+                return true;
+            })
+            .then(()=>{ getActions(); })
+        }
+    const getActions = () => {
+        const states = document.getElementsByClassName('estado');
+        for (let i = 0; i < states.length; i++) {
+                states[i].onclick = () => { stateClicked(states[i]) }
+        }
+        getEstados();
+    };
+
+    const getEstados = () => {
+        fetch('./estados.json')
+            .then((response)=>response.json())
+            .then((response)=>{
+                estados.push(...response)
+            })
+    }
+
+    const stateClicked = (state) => {
+        const code = state.getAttribute('code');
+        const uf = estados.find(estado => estado.code === code)
+        writeInfo(uf);
+        /* console.log(uf) */
+    }
+
+    const writeInfo = (uf) => {
+        const $name = document.getElementById('stateName');
+        const $pop = document.getElementById('statePop');
+        const $desc = document.getElementById('stateDesc');
+
+        $name.innerHTML = `${uf.nome} (${uf.sigla})`;
+        $pop.innerHTML = `População: ${uf.populacao}`;
+        $desc.innerHTML = uf.descricao;
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+BODY{
+    background-color: #333333;
+    font-family: sans-serif;
+    color: white;
+}
+#svg-map{
+    cursor: pointer;
+}
+#svg-map path{
+    fill: #333333;
+}
+#svg-map a:hover path{
+    fill: #131313;
+}
+text{
+    fill: white;
+}
+
+#container{
+    width: 80%;
+    margin: 50px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+#map{
+    width: 50%;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: #1E1E1E;
+}
+#text{
+    background-color: #1E1E1E;
+    width: 50%;
+    margin: 10px;
+    padding: 20px;
+    border-radius: 15px;
+}
